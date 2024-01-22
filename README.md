@@ -14,4 +14,5 @@ RESUELVE
 - Crea una clase Java llamada Acceso para gestionar las sesiones de hibernate y que implemente los siguientes métodos públicos.
 
 -Acceso.insertarAlumno(Alumno): Este método inserta un nuevo alumno  que recibe como parámetro en la base de datos.
+
 -Acceso.listarAlumnos(): Este método lista todos los alumnos que hay en la base de datos.
