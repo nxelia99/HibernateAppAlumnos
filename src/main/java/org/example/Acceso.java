@@ -35,7 +35,7 @@ public class Acceso {
         }
     }
 
-    public static <Alumno> void insertarAlumno(Alumno) {
+    public static <Alumno> void insertarAlumno() {
         try {
             Statement statement = connection.createStatement();
             Scanner sc = new Scanner(System.in);
