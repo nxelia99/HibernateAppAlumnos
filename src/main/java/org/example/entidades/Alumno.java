@@ -1,11 +1,22 @@
-package org.example;
+package org.example.entidades;
 
-public class Alumno {
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity(name="lumno")
+@Table(name="alumnos")
+
+public class Alumno{
+    @Id
+    private int id;
     private String nombre;
     private String apellidos;
     private String curso;
     private int numeroasignaturas;
     private int edad;
+
+    public Alumno(){}
 
     public Alumno(String nombre, String apellidos, String curso, int numeroasignaturas, int edad) {
         this.nombre = nombre;

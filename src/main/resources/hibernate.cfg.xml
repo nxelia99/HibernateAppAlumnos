@@ -4,12 +4,14 @@
     "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
-    <property name="connection.url"/>
-    <property name="connection.driver_class"/>
-    <!-- <property name="connection.username"/> -->
-    <!-- <property name="connection.password"/> -->
+    <property name="connection.url">jdbc:mysql://localhost:3306/alumnosdb</property>
+    <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+    <property name="connection.username">root</property>
+    <property name="connection.password"> </property>
+    <property name="show_sql">true</property>
+    <property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
+    <property name="hibernate.hbm2ddl.auto">create</property>
+    <mapping class="org.example.entidades.Alumno" />
 
-    <!-- DB schema will be updated if needed -->
-    <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
   </session-factory>
 </hibernate-configuration>

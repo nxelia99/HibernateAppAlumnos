@@ -1,4 +1,6 @@
 package org.example;
+import org.example.entidades.Alumno;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
