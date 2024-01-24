@@ -1,16 +1,45 @@
 package org.example;
 
-import org.example.manager.AlumnosManager;
+import org.example.entidades.Alumno;
+
+import java.util.List;
+import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
 
-        AlumnosManager manager = new AlumnosManager();
-        manager.setup();
-        manager.create();
-        manager.exit();
+        Acceso.setup();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Inserte los datos del alumno:");
+        System.out.print("Nombre: ");
+        String nombre = scanner.nextLine();
+
+        System.out.print("Apellidos: ");
+        String apellido = scanner.nextLine();
+
+        System.out.print("Curso: ");
+        String curso = scanner.nextLine();
+
+        System.out.print("Número de asignaturas: ");
+        int numasignaturas = scanner.nextInt();
+
+        System.out.print("Edad: ");
+        int edad = scanner.nextInt();
+
+        Alumno nuevoalumno = new Alumno(nombre, apellido, curso, numasignaturas, edad);
+        Acceso.insertarAlumno(nuevoalumno);
+
+        // Listar alumnos
+        List<Alumno> listaAlumnos = Acceso.listarAlumnos();
+        System.out.println("\nLista de Alumnos:");
+        for (Alumno alumno : listaAlumnos) {
+            System.out.println(alumno.getNombre() + " " + alumno.getApellidos()
+            + " " + alumno.getCurso() + " " + alumno.getNumeroasignaturas() + " " +
+                    alumno.getEdad());
+        }
+        Acceso.exit();
 
 
 

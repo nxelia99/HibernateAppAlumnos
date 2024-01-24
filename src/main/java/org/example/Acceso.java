@@ -1,80 +1,80 @@
 package org.example;
-import org.example.entidades.Alumno;
 
-import java.sql.*;
-import java.util.ArrayList;
+import org.example.entidades.Alumno;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+
 import java.util.List;
 import java.util.Scanner;
 
 public class Acceso {
-    private static final String URL = "jdbc:mysql://localhost: ";
-    private static final String USER = "root";
-    private static final String PASSWORD = " ";
-    private static Connection connection;
+    private static StandardServiceRegistry registry;
+    private static SessionFactory sessionFactory;
 
-    public static void conectar() {
+    public static void setup() {
+
+        final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
         try {
-            // datos para la conexión
-            String url = "jdbc:mysql://localhost:3306/alumnosdb";
-            String usuario = "root";
-            String contraseña = "";
+            sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
+        } catch (Exception ex) {
+            StandardServiceRegistryBuilder.destroy(registry);
+            System.out.println(ex);
 
-            connection = DriverManager.getConnection(url, usuario, contraseña);
-            System.out.println("Conexión establecida con la base de datos");
-        } catch (SQLException e) {
+        }
+    }
+
+    // función para cerrar la sesión de hibernate
+    public static void exit() {
+        try {
+            sessionFactory.close();
+        }catch (Exception e){
+            System.out.println("Error");
+
+        }
+    }
+
+    // crear alumno
+    public static void insertarAlumno(Alumno alumno){
+
+        try {
+
+            Session session = sessionFactory.openSession();
+            session.beginTransaction();
+
+            session.persist(alumno);
+
+            session.getTransaction().commit();
+            session.close();
+
+        }catch (Exception e){
+            System.out.println("Error al crear: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
-    public static void desconectar() {
-        try {
-            if (connection != null && !connection.isClosed()) {
-                connection.close();
-                System.out.println("Conexión cerrada");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+    //leer los datos del alumno
 
-    public static <Alumno> void insertarAlumno() {
-        try {
-            Statement statement = connection.createStatement();
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Inserte los siguientes datos del alumno:");
-            System.out.println("Nombre:");
-            String nombrealumno = sc.nextLine();
-            System.out.println("Apellidos:");
-            String apellidosalumno = sc.nextLine();
-            System.out.println("Curso:");
-            String cursoalumno = sc.nextLine();
-            System.out.println("Número de asignaturas:");
-            String numasignaturasalumno = sc.nextLine();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void listarAlumnos(){
-        ResultSet resultset = null;
-        Statement statement = null;
+    public static List<Alumno> listarAlumnos() {
         try{
-        statement = connection.createStatement();
-        resultset = statement.executeQuery("SELECT * FROM alumnos;");
-        // Insertar el alumno
-        List<Alumno> alumnos = new ArrayList<>();
-        while(resultset.next()){
-            Integer id = resultset.getInt("id");
-            String nombre = resultset.getString("nombre");
-            String apellidos = resultset.getString("apellidos");
-            String curso = resultset.getString("curso");
-            int numasignaturas = resultset.getInt("numasignaturas");
-            int edad = resultset.getInt("edad");
+            Session session = sessionFactory.openSession();
+            return (session.createQuery("FROM Alumno", Alumno.class).list());
+        }catch(Exception e){
+            System.out.println("Error al listar");
         }
-        statement.close();
-    }catch (SQLException e){
-            e.printStackTrace();
-        }
+        return null;
+    }
 
-} }
+    // actualizar los datos del alumno
+
+    protected void update(){
+
+    }
+
+    //eliminar un alumno
+    protected void delete(){
+
+    }
+}

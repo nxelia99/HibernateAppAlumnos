@@ -1,14 +1,13 @@
 package org.example.entidades;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
-@Entity(name="alumno")
+@Entity(name="Alumno")
 @Table(name="alumnos")
 
 public class Alumno{
     @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private int id;
     private String nombre;
     private String apellidos;
