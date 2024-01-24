@@ -4,7 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-@Entity(name="lumno")
+@Entity(name="alumno")
 @Table(name="alumnos")
 
 public class Alumno{
