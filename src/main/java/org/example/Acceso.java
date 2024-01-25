@@ -8,7 +8,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import java.util.List;
-import java.util.Scanner;
+
 
 public class Acceso {
     private static StandardServiceRegistry registry;
@@ -19,9 +19,9 @@ public class Acceso {
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
         try {
             sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-        } catch (Exception ex) {
+        } catch (Exception e) {
             StandardServiceRegistryBuilder.destroy(registry);
-            System.out.println(ex);
+            System.out.println(e.getMessage());
 
         }
     }
@@ -31,7 +31,7 @@ public class Acceso {
         try {
             sessionFactory.close();
         }catch (Exception e){
-            System.out.println("Error");
+            System.out.println(e.getMessage());
 
         }
     }
@@ -55,26 +55,18 @@ public class Acceso {
         }
     }
 
-    //leer los datos del alumno
+    //listar los datos del alumno
 
     public static List<Alumno> listarAlumnos() {
         try{
             Session session = sessionFactory.openSession();
             return (session.createQuery("FROM Alumno", Alumno.class).list());
         }catch(Exception e){
-            System.out.println("Error al listar");
+            System.out.println("Error al listar" + e.getMessage());
         }
         return null;
     }
 
-    // actualizar los datos del alumno
 
-    protected void update(){
 
-    }
-
-    //eliminar un alumno
-    protected void delete(){
-
-    }
 }
