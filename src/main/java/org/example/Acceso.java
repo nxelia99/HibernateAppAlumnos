@@ -8,6 +8,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import java.util.List;
+import java.util.Scanner;
 
 
 public class Acceso {
@@ -40,6 +41,8 @@ public class Acceso {
     public static void insertarAlumno(Alumno alumno){
 
         try {
+
+            //introducir los datos del alumno en la tabla
 
             Session session = sessionFactory.openSession();
             session.beginTransaction();
